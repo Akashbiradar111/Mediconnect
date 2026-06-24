@@ -3,15 +3,8 @@ import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import Logo from '../components/common/Logo';
 import SuccessSealIcon from '../components/common/SuccessSealIcon';
 
-const CARD_WIDTH = 496;
-const CARD_HEIGHT = 696;
-const CONTENT_WIDTH = 400;
-const HEADER_HEIGHT = 214;
-const UNIQUE_ID_WIDTH = 314;
-const UNIQUE_ID_HEIGHT = 130;
-const NOTE_HEIGHT = 80;
-const BUTTONS_HEIGHT = 56;
-const SECTION_GAP = 40;
+const CARD_MAX_WIDTH = 496;
+const CONTENT_MAX_WIDTH = 400;
 
 const formatDisplayId = (suffix) => suffix.toUpperCase().split('').join('  ');
 const formatCopyId = (suffix) => `PAT-${suffix.toUpperCase()}`;
@@ -22,10 +15,11 @@ function UniqueIdSection({ patientIdSuffix, email, onCopy }) {
   return (
     <Box
       sx={{
-        width: UNIQUE_ID_WIDTH,
-        height: UNIQUE_ID_HEIGHT,
+        width: '100%',
+        maxWidth: CONTENT_MAX_WIDTH,
         display: 'flex',
         flexDirection: 'column',
+        gap: { xs: 1.5, sm: 2 },
       }}
     >
       <Typography
@@ -79,11 +73,13 @@ function UniqueIdSection({ patientIdSuffix, email, onCopy }) {
         >
           <Typography
             sx={{
-              fontSize: '15px',
+              fontSize: { xs: '13px', sm: '15px' },
               fontWeight: 600,
               color: '#0E6655',
-              letterSpacing: '0.22em',
+              letterSpacing: { xs: '0.12em', sm: '0.22em' },
               lineHeight: '24px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }}
           >
             {formatDisplayId(patientIdSuffix)}
@@ -105,7 +101,7 @@ function UniqueIdSection({ patientIdSuffix, email, onCopy }) {
         </Box>
       </Box>
 
-      <Box sx={{ mt: 'auto', textAlign: 'center' }}>
+      <Box sx={{ textAlign: 'center' }}>
         <Typography
           sx={{
             fontSize: '13px',
@@ -150,52 +146,63 @@ export default function AccountSuccessPage({ patientIdSuffix, email }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        px: 2,
-        py: 4,
+        px: { xs: 2, sm: 3 },
+        py: { xs: 3, sm: 4 },
+        boxSizing: 'border-box',
       }}
     >
-      <Box sx={{ width: CARD_WIDTH }}>
-        <Box sx={{ mb: 3 }}>
+      <Box sx={{ width: '100%', maxWidth: CARD_MAX_WIDTH }}>
+        <Box sx={{ mb: { xs: 2, sm: 3 } }}>
           <Logo />
         </Box>
 
         <Box
           sx={{
-            width: CARD_WIDTH,
-            height: CARD_HEIGHT,
+            width: '100%',
             boxSizing: 'border-box',
             bgcolor: '#FFFFFF',
-            borderRadius: '24px',
+            borderRadius: { xs: '16px', sm: '24px' },
             border: '1px solid #E8E8E8',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)',
-            px: `${(CARD_WIDTH - CONTENT_WIDTH) / 2}px`,
-            py: '48px',
+            px: { xs: 2, sm: 3, md: `${(CARD_MAX_WIDTH - CONTENT_MAX_WIDTH) / 2}px` },
+            py: { xs: 3, sm: 4, md: 6 },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: `${SECTION_GAP}px`,
+            gap: { xs: 3, sm: 4, md: 5 },
           }}
         >
           <Box
             sx={{
-              width: CONTENT_WIDTH,
-              height: HEADER_HEIGHT,
+              width: '100%',
+              maxWidth: CONTENT_MAX_WIDTH,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
             }}
           >
-            <Box sx={{ display: 'flex', justifyContent: 'center', mb: '16px' }}>
-              <SuccessSealIcon />
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: { xs: '12px', sm: '16px' } }}>
+              <Box
+                component="span"
+                sx={{
+                  display: 'inline-flex',
+                  '& svg': {
+                    width: { xs: 60, sm: 72 },
+                    height: { xs: 60, sm: 72 },
+                  },
+                }}
+              >
+                <SuccessSealIcon />
+              </Box>
             </Box>
 
             <Typography
               sx={{
-                fontSize: '24px',
+                fontSize: { xs: '20px', sm: '24px' },
                 fontWeight: 700,
                 color: '#000000',
                 textAlign: 'center',
-                lineHeight: '32px',
+                lineHeight: { xs: '28px', sm: '32px' },
                 mb: '12px',
               }}
             >
@@ -206,18 +213,15 @@ export default function AccountSuccessPage({ patientIdSuffix, email }) {
 
             <Typography
               sx={{
-                fontSize: '14px',
+                fontSize: { xs: '13px', sm: '14px' },
                 fontWeight: 400,
                 color: '#666666',
                 textAlign: 'center',
                 lineHeight: '22px',
               }}
             >
-              Your patient account has been created
-              <br />
-              successfully. You can now access your healthcare
-              <br />
-              dashboard and manage your records securely.
+              Your patient account has been created successfully. You can now access your
+              healthcare dashboard and manage your records securely.
             </Typography>
           </Box>
 
@@ -229,14 +233,14 @@ export default function AccountSuccessPage({ patientIdSuffix, email }) {
 
           <Box
             sx={{
-              width: CONTENT_WIDTH,
-              height: NOTE_HEIGHT,
+              width: '100%',
+              maxWidth: CONTENT_MAX_WIDTH,
               boxSizing: 'border-box',
               bgcolor: '#F9F9F9',
               border: '1px solid #EEEEEE',
               borderRadius: '8px',
-              px: '16px',
-              py: '16px',
+              px: { xs: 1.5, sm: 2 },
+              py: { xs: 1.5, sm: 2 },
               display: 'flex',
               alignItems: 'center',
             }}
@@ -259,22 +263,23 @@ export default function AccountSuccessPage({ patientIdSuffix, email }) {
 
           <Box
             sx={{
-              width: CONTENT_WIDTH,
-              height: BUTTONS_HEIGHT,
+              width: '100%',
+              maxWidth: CONTENT_MAX_WIDTH,
               display: 'flex',
-              gap: '12px',
+              flexDirection: { xs: 'column', sm: 'row' },
+              gap: { xs: 1.5, sm: '12px' },
             }}
           >
             <Button
               fullWidth
               sx={{
                 flex: 1,
-                height: BUTTONS_HEIGHT,
-                minHeight: BUTTONS_HEIGHT,
+                height: { xs: 48, sm: 56 },
+                minHeight: { xs: 48, sm: 56 },
                 bgcolor: '#F0F4F4',
                 color: '#0A5D4A',
                 fontWeight: 600,
-                fontSize: '16px',
+                fontSize: { xs: '15px', sm: '16px' },
                 borderRadius: '12px',
                 textTransform: 'none',
                 boxShadow: 'none',
@@ -291,12 +296,12 @@ export default function AccountSuccessPage({ patientIdSuffix, email }) {
               variant="contained"
               sx={{
                 flex: 1,
-                height: BUTTONS_HEIGHT,
-                minHeight: BUTTONS_HEIGHT,
+                height: { xs: 48, sm: 56 },
+                minHeight: { xs: 48, sm: 56 },
                 bgcolor: '#0A5D4A',
                 color: '#FFFFFF',
                 fontWeight: 600,
-                fontSize: '16px',
+                fontSize: { xs: '15px', sm: '16px' },
                 borderRadius: '12px',
                 textTransform: 'none',
                 boxShadow: '0 2px 8px rgba(10, 93, 74, 0.25)',

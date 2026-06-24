@@ -38,8 +38,8 @@ export default function PersonalInformationStep({ showValidationBanner }) {
     <Box
       sx={{
         display: 'grid',
-        gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-        gap: { xs: 2.5, md: 4 },
+        gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+        gap: { xs: 2.5, sm: 3, md: 4 },
       }}
     >
       <FormTextField

@@ -21,8 +21,8 @@ export default function AdditionalInformationStep() {
     <Box
       sx={{
         display: 'grid',
-        gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-        gap: { xs: 2.5, md: 3 },
+        gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+        gap: { xs: 2.5, sm: 3 },
       }}
     >
       <FormUnitField
@@ -37,6 +37,16 @@ export default function AdditionalInformationStep() {
         onUnitChange={(e) => setFieldValue('heightUnit', e.target.value)}
         error={touched.height && Boolean(errors.height)}
         helperText={touched.height && errors.height}
+        sx={{
+          '& input[type=number]': {
+            MozAppearance: 'textfield',
+          },
+          '& input[type=number]::-webkit-outer-spin-button, & input[type=number]::-webkit-inner-spin-button':
+            {
+              WebkitAppearance: 'none',
+              margin: 0,
+            },
+        }}
       />
 
       <FormUnitField
@@ -51,6 +61,16 @@ export default function AdditionalInformationStep() {
         onUnitChange={(e) => setFieldValue('weightUnit', e.target.value)}
         error={touched.weight && Boolean(errors.weight)}
         helperText={touched.weight && errors.weight}
+        sx={{
+          '& input[type=number]': {
+            MozAppearance: 'textfield',
+          },
+          '& input[type=number]::-webkit-outer-spin-button, & input[type=number]::-webkit-inner-spin-button':
+            {
+              WebkitAppearance: 'none',
+              margin: 0,
+            },
+        }}
       />
 
       <FormUnitField
@@ -75,6 +95,16 @@ export default function AdditionalInformationStep() {
         unit="mg/dL"
         error={touched.bloodSugar && Boolean(errors.bloodSugar)}
         helperText={touched.bloodSugar && errors.bloodSugar}
+        sx={{
+          '& input[type=number]': {
+            MozAppearance: 'textfield',
+          },
+          '& input[type=number]::-webkit-outer-spin-button, & input[type=number]::-webkit-inner-spin-button':
+            {
+              WebkitAppearance: 'none',
+              margin: 0,
+            },
+        }}
       />
 
       <FormSelect

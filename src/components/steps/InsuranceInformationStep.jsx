@@ -87,7 +87,7 @@ export default function InsuranceInformationStep() {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: { xs: 2.5, md: 3 },
+        gap: { xs: 2.5, sm: 3 },
         maxWidth: '100%',
       }}
     >
@@ -122,7 +122,7 @@ export default function InsuranceInformationStep() {
         />
 
         {uploadedFile && uploadStatus && (
-          <Box sx={{ mt: 2 }}>
+          <Box sx={{ mt: 2, maxWidth: { xs: '100%', sm: 256 } }}>
             <UploadedFileCard
               file={uploadedFile}
               title={fileTitle}

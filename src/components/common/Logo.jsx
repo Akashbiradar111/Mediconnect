@@ -12,7 +12,7 @@ export default function Logo({ compact = false }) {
         src={logoFull}
         alt="MediConnect Healthcare Ecosystem"
         sx={{
-          height: 48,
+          height: { xs: 40, sm: 48 },
           width: 'auto',
           objectFit: 'contain',
           display: 'block',

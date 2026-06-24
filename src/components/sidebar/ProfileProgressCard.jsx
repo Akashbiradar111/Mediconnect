@@ -10,7 +10,7 @@ export default function ProfileProgressCard({ progress }) {
         borderRadius: 2,
         border: '1px solid',
         borderColor: 'divider',
-        p: 2.5,
+        p: { xs: 2, sm: 2.5 },
         boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
       }}
     >

@@ -141,21 +141,21 @@ export default function RegistrationPage() {
                 <Box
                   sx={{
                     display: 'flex',
-                    flexDirection: { xs: 'column', md: 'row' },
+                    flexDirection: { xs: 'column', sm: 'row' },
                     justifyContent: 'space-between',
-                    alignItems: { xs: 'flex-start', md: 'center' },
-                    gap: { xs: 2, md: 3 },
+                    alignItems: { xs: 'flex-start', sm: 'center' },
+                    gap: { xs: 2, sm: 3 },
                     mb: { xs: 3, md: 4 },
-                    minHeight: { md: 66 },
+                    minHeight: { sm: 66 },
                   }}
                 >
                   <Box>
                     <Typography
                       sx={{
-                        fontSize: '1.5rem',
+                        fontSize: { xs: '1.25rem', sm: '1.375rem', md: '1.5rem' },
                         fontWeight: 700,
                         color: '#111827',
-                        lineHeight: '24px',
+                        lineHeight: { xs: '28px', md: '24px' },
                         mb: '4px',
                       }}
                     >
@@ -163,20 +163,23 @@ export default function RegistrationPage() {
                     </Typography>
                     <Typography
                       sx={{
-                        fontSize: '0.875rem',
+                        fontSize: { xs: '0.8125rem', sm: '0.875rem' },
                         fontWeight: 400,
                         color: '#666666',
                         lineHeight: '19px',
-                        maxWidth:
-                          currentStep.id === 'medical'
-                            ? 520
-                            : currentStep.id === 'insurance'
-                              ? 560
-                              : currentStep.id === 'records'
+                        maxWidth: {
+                          xs: '100%',
+                          md:
+                            currentStep.id === 'medical'
+                              ? 520
+                              : currentStep.id === 'insurance'
                                 ? 560
-                                : currentStep.id === 'review'
+                                : currentStep.id === 'records'
                                   ? 560
-                                  : 328,
+                                  : currentStep.id === 'review'
+                                    ? 560
+                                    : 328,
+                        },
                         ...(currentStep.id === 'medical' && { whiteSpace: 'pre-line' }),
                         ...(currentStep.id === 'insurance' && { whiteSpace: 'pre-line' }),
                         ...(currentStep.id === 'records' && { whiteSpace: 'pre-line' }),
@@ -186,7 +189,7 @@ export default function RegistrationPage() {
                       {reviewSubtitle}
                     </Typography>
                   </Box>
-                  <ContactSupport />
+                  <ContactSupport sx={{ alignSelf: { xs: 'flex-start', sm: 'center' } }} />
                 </Box>
 
                 <Box sx={{ flex: 1 }}>
@@ -231,9 +234,11 @@ export default function RegistrationPage() {
                     <Box
                       sx={{
                         display: 'flex',
-                        alignItems: 'center',
+                        flexDirection: { xs: 'column', sm: 'row' },
+                        alignItems: { xs: 'stretch', sm: 'center' },
                         gap: 2,
-                        justifyContent: { xs: 'space-between', sm: 'flex-end' },
+                        justifyContent: { xs: 'stretch', sm: 'flex-end' },
+                        width: { xs: '100%', sm: 'auto' },
                       }}
                     >
                       <Button
@@ -258,7 +263,8 @@ export default function RegistrationPage() {
                   <Box
                     sx={{
                       display: 'flex',
-                      alignItems: 'center',
+                      flexDirection: { xs: 'column', sm: 'row' },
+                      alignItems: { xs: 'stretch', sm: 'center' },
                       gap: 2,
                       justifyContent: 'flex-end',
                       pt: { xs: 3, md: 4 },
@@ -275,6 +281,7 @@ export default function RegistrationPage() {
                         textTransform: 'none',
                         minWidth: 'auto',
                         px: 1,
+                        alignSelf: { xs: 'flex-start', sm: 'center' },
                         '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' },
                       }}
                     >
@@ -288,7 +295,7 @@ export default function RegistrationPage() {
                   <Box
                     sx={{
                       display: 'flex',
-                      justifyContent: 'flex-end',
+                      justifyContent: { xs: 'stretch', sm: 'flex-end' },
                       pt: { xs: 3, md: 4 },
                       mt: 'auto',
                     }}

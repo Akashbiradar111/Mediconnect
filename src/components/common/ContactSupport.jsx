@@ -1,14 +1,15 @@
 import { Box, Link, Typography } from '@mui/material';
 import HeadsetMicOutlinedIcon from '@mui/icons-material/HeadsetMicOutlined';
 
-export default function ContactSupport() {
+export default function ContactSupport({ sx }) {
   return (
     <Box
       sx={{
         display: 'flex',
         alignItems: 'center',
-        gap: '10px',
+        gap: { xs: 1, sm: '10px' },
         flexShrink: 0,
+        ...sx,
       }}
     >
       <HeadsetMicOutlinedIcon

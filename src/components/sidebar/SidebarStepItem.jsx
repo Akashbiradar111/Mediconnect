@@ -17,9 +17,10 @@ export default function SidebarStepItem({ step, isActive, isCompleted, isLast })
       <Box
         sx={{
           position: 'relative',
-          display: 'inline-flex',
+          display: 'flex',
           alignItems: 'center',
-          maxWidth: '100%',
+          width: '100%',
+          minWidth: 0,
         }}
       >
         {isActive && (
@@ -77,6 +78,10 @@ export default function SidebarStepItem({ step, isActive, isCompleted, isLast })
             lineHeight: 1.4,
             position: 'relative',
             zIndex: 1,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            minWidth: 0,
           }}
         >
           {step.label}

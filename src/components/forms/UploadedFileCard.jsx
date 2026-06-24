@@ -124,7 +124,8 @@ export default function UploadedFileCard({
   return (
     <Box
       sx={{
-        width: CARD_WIDTH,
+        width: { xs: '100%', sm: CARD_WIDTH },
+        maxWidth: CARD_WIDTH,
         border: '1px solid',
         borderColor: '#E5E7EB',
         borderRadius: '12px',

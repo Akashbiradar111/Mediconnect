@@ -93,9 +93,9 @@ export default function FileUploadDropzone({
           borderColor: isDragging ? '#008060' : '#D1D5DB',
           borderRadius: '10px',
           bgcolor: isDragging ? '#F0FAF7' : '#FAFAFA',
-          py: 6,
-          px: 3,
-          minHeight,
+          py: { xs: 4, sm: 5, md: 6 },
+          px: { xs: 2, sm: 3 },
+          minHeight: { xs: Math.min(minHeight, 160), sm: minHeight },
           textAlign: 'center',
           cursor: 'pointer',
           transition: 'border-color 0.2s, background-color 0.2s',
@@ -113,7 +113,7 @@ export default function FileUploadDropzone({
 
         <CloudUploadOutlinedIcon
           sx={{
-            fontSize: 40,
+            fontSize: { xs: 32, sm: 40 },
             color: '#9CA3AF',
             mb: 1.5,
           }}

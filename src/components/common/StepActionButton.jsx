@@ -8,8 +8,9 @@ export default function StepActionButton({ children, disabled, onClick, type = '
       disabled={disabled}
       onClick={onClick}
       sx={{
-        minWidth: { xs: '100%', sm: 240 },
-        py: 1.5,
+        minWidth: { xs: '100%', sm: 200, md: 240 },
+        py: { xs: 1.25, sm: 1.5 },
+        fontSize: { xs: '0.875rem', sm: '0.9375rem' },
         bgcolor: disabled ? '#E5E7EB' : 'primary.main',
         color: disabled ? '#6B7280' : 'white',
         '&:hover': {

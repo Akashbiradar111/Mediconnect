@@ -97,8 +97,8 @@ function PatientIdInput({ label, suffix, onSuffixChange, availability, touched, 
       <RequiredLabel>{label}</RequiredLabel>
       <Box
         sx={{
-          display: 'inline-flex',
-          width: 'fit-content',
+          display: 'flex',
+          width: '100%',
           maxWidth: '100%',
           border: containerBorder,
           borderRadius: '10px',
@@ -131,18 +131,20 @@ function PatientIdInput({ label, suffix, onSuffixChange, availability, touched, 
           maxLength={PATIENT_ID_LENGTH}
           aria-label="Patient ID suffix"
           sx={{
-            width: 196,
+            flex: 1,
+            minWidth: 0,
+            width: '100%',
             height: 48,
             border: 'none',
             borderLeft: '1px solid #E5E7EB',
             outline: 'none',
             bgcolor: '#FFFFFF',
             color: '#111827',
-            fontSize: '0.875rem',
+            fontSize: { xs: '0.8125rem', sm: '0.875rem' },
             fontWeight: 500,
-            letterSpacing: '0.45em',
+            letterSpacing: { xs: '0.25em', sm: '0.45em' },
             textTransform: 'uppercase',
-            pl: 1.75,
+            pl: { xs: 1.25, sm: 1.75 },
             pr: 1.5,
             boxSizing: 'border-box',
           }}
@@ -285,7 +287,7 @@ export default function ReviewCompleteStep() {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: { xs: 3, md: 4 },
+        gap: { xs: 2.5, sm: 3, md: 4 },
         maxWidth: '100%',
       }}
     >
@@ -394,10 +396,10 @@ export default function ReviewCompleteStep() {
           <Box
             sx={{
               display: 'flex',
-              flexWrap: 'nowrap',
+              flexWrap: { xs: 'nowrap', sm: 'wrap' },
               gap: 1,
-              overflowX: 'auto',
-              pb: 0.5,
+              overflowX: { xs: 'auto', sm: 'visible' },
+              pb: { xs: 0.5, sm: 0 },
               '&::-webkit-scrollbar': { height: 4 },
               '&::-webkit-scrollbar-thumb': { bgcolor: '#D1D5DB', borderRadius: 2 },
             }}
@@ -463,7 +465,7 @@ export default function ReviewCompleteStep() {
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+            gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
             gap: { xs: 2.5, md: 4 },
             alignItems: 'start',
           }}

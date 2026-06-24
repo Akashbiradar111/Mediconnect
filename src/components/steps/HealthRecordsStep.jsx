@@ -198,11 +198,12 @@ export default function HealthRecordsStep() {
           sx={{
             mt: 2.5,
             display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
             gap: 2,
-            overflowX: 'auto',
-            pb: 1,
-            mx: -0.5,
-            px: 0.5,
+            overflowX: { xs: 'visible', sm: 'auto' },
+            pb: { xs: 0, sm: 1 },
+            mx: { xs: 0, sm: -0.5 },
+            px: { xs: 0, sm: 0.5 },
             '&::-webkit-scrollbar': {
               height: 6,
             },
@@ -217,7 +218,7 @@ export default function HealthRecordsStep() {
           }}
         >
           {files.map((entry) => (
-            <Box key={entry.id} sx={{ flexShrink: 0 }}>
+            <Box key={entry.id} sx={{ flexShrink: { xs: 1, sm: 0 }, width: { xs: '100%', sm: 'auto' } }}>
               <UploadedFileCard
                 file={entry.file}
                 title={entry.title}

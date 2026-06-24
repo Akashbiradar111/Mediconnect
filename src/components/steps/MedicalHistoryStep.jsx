@@ -23,7 +23,7 @@ export default function MedicalHistoryStep() {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: { xs: 2.5, md: 3 },
+        gap: { xs: 2.5, sm: 3 },
         maxWidth: '100%',
       }}
     >

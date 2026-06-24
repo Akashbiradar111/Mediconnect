@@ -16,8 +16,8 @@ export default function Sidebar({ activeStep }) {
         bgcolor: 'background.paper',
         borderRight: '1px solid',
         borderColor: 'divider',
-        px: { md: 3, lg: 4 },
-        py: 3,
+        px: { xs: 2, md: 3, lg: 4 },
+        py: { xs: 2, md: 3 },
       }}
     >
       <Box sx={{ mb: 3 }}>
