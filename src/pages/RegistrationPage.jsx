@@ -8,6 +8,7 @@ import ContactSupport from '../components/common/ContactSupport';
 import StepActionButton from '../components/common/StepActionButton';
 import PersonalInformationStep from '../components/steps/PersonalInformationStep';
 import AdditionalInformationStep from '../components/steps/AdditionalInformationStep';
+import MedicalHistoryStep from '../components/steps/MedicalHistoryStep';
 import StepPlaceholder from '../components/steps/StepPlaceholder';
 import { REGISTRATION_STEPS } from '../constants/steps';
 import { INITIAL_FORM_VALUES } from '../constants/formOptions';
@@ -19,6 +20,8 @@ const renderStepContent = (stepId, submitAttempted) => {
       return <PersonalInformationStep showValidationBanner={submitAttempted} />;
     case 'additional':
       return <AdditionalInformationStep />;
+    case 'medical':
+      return <MedicalHistoryStep />;
     default:
       return <StepPlaceholder title={REGISTRATION_STEPS.find((s) => s.id === stepId)?.title} />;
   }
@@ -80,7 +83,8 @@ export default function RegistrationPage() {
       >
         {({ isValid, handleSubmit }) => {
           const isPersonalStep = currentStep.id === 'personal';
-          const isAdditionalStep = currentStep.id === 'additional';
+          const isSkippableStep =
+            currentStep.id === 'additional' || currentStep.id === 'medical';
           const isButtonDisabled = isPersonalStep && !isValid;
 
           return (
@@ -126,7 +130,8 @@ export default function RegistrationPage() {
                         fontWeight: 400,
                         color: '#666666',
                         lineHeight: '19px',
-                        maxWidth: 328,
+                        maxWidth: currentStep.id === 'medical' ? 520 : 328,
+                        ...(currentStep.id === 'medical' && { whiteSpace: 'pre-line' }),
                       }}
                     >
                       {currentStep.subtitle}
@@ -139,7 +144,7 @@ export default function RegistrationPage() {
                   {renderStepContent(currentStep.id, submitAttempted)}
                 </Box>
 
-                {isAdditionalStep ? (
+                {isSkippableStep ? (
                   <Box
                     sx={{
                       display: 'flex',

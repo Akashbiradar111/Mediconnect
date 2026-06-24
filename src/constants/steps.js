@@ -32,9 +32,10 @@ export const REGISTRATION_STEPS = [
     id: 'medical',
     label: 'Medical History',
     title: 'Medical History',
-    subtitle: 'Share your medical background for safer, more informed care.',
+    subtitle:
+      'Add information about your past treatments,\nmedications, and health conditions.',
     icon: MedicalHistoryIcon,
-    progress: 45,
+    progress: 40,
     nextButtonLabel: 'Add Insurance Information',
   },
   {

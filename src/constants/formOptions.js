@@ -58,6 +58,12 @@ export const INITIAL_FORM_VALUES = {
   alcoholConsumption: '',
   emergencyContactRelationship: '',
   emergencyContactNumber: '',
+  allergies: '',
+  allergyTags: [],
+  currentMedications: '',
+  existingConditions: '',
+  conditionTags: [],
+  previousSurgeries: '',
 };
 
 export const HEIGHT_UNIT_OPTIONS = [
