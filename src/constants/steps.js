@@ -51,11 +51,12 @@ export const REGISTRATION_STEPS = [
   {
     id: 'records',
     label: 'Health Records',
-    title: 'Health Records',
-    subtitle: 'Upload or link your existing health records.',
+    title: 'Upload Health Records',
+    subtitle:
+      'Keep all your medical documents in one secure and\nconvenient place.',
     icon: HealthRecordsIcon,
-    progress: 85,
-    nextButtonLabel: 'Review & Complete',
+    progress: 75,
+    nextButtonLabel: 'Create Unique ID',
   },
   {
     id: 'review',

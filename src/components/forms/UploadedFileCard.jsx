@@ -42,6 +42,10 @@ export default function UploadedFileCard({
   onCancel,
   onDelete,
   onRetry,
+  metadataUppercase = true,
+  successColor = '#374151',
+  successLabel = 'Upload Successful!',
+  thumbnailSrc,
 }) {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [editValue, setEditValue] = useState(title);
@@ -49,6 +53,11 @@ export default function UploadedFileCard({
   const titleInputRef = useRef(null);
 
   useEffect(() => {
+    if (thumbnailSrc) {
+      setPreviewUrl(thumbnailSrc);
+      return undefined;
+    }
+
     let objectUrl = null;
     let cancelled = false;
 
@@ -88,7 +97,7 @@ export default function UploadedFileCard({
       cancelled = true;
       if (objectUrl) URL.revokeObjectURL(objectUrl);
     };
-  }, [file]);
+  }, [file, thumbnailSrc]);
 
   useEffect(() => {
     if (isEditingTitle) {
@@ -239,11 +248,11 @@ export default function UploadedFileCard({
 
         <Typography
           sx={{
-            fontSize: '0.6875rem',
+            fontSize: metadataUppercase ? '0.6875rem' : '0.75rem',
             fontWeight: 500,
-            color: '#9CA3AF',
-            letterSpacing: '0.02em',
-            textTransform: 'uppercase',
+            color: metadataUppercase ? '#9CA3AF' : '#6B7280',
+            letterSpacing: metadataUppercase ? '0.02em' : 'normal',
+            textTransform: metadataUppercase ? 'uppercase' : 'none',
             lineHeight: '16px',
             mb: 1.25,
           }}
@@ -311,11 +320,11 @@ export default function UploadedFileCard({
               sx={{
                 fontSize: '0.75rem',
                 fontWeight: 500,
-                color: '#374151',
+                color: status === 'uploaded' ? successColor : '#374151',
               }}
             >
               {status === 'queued' && 'Queued'}
-              {status === 'uploaded' && 'Upload Successful!'}
+              {status === 'uploaded' && successLabel}
               {status === 'failed' && 'Upload Failed!'}
             </Typography>
 

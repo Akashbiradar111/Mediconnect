@@ -115,6 +115,9 @@ export default function InsuranceInformationStep() {
       <Box>
         <FileUploadDropzone
           label="Upload Insurance Card (Optional)"
+          browseOnNewLine
+          minHeight={200}
+          dragText="Drag and drop your insurance card here, or"
           onFileSelect={handleFileSelect}
         />
 

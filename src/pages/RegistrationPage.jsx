@@ -10,6 +10,7 @@ import PersonalInformationStep from '../components/steps/PersonalInformationStep
 import AdditionalInformationStep from '../components/steps/AdditionalInformationStep';
 import MedicalHistoryStep from '../components/steps/MedicalHistoryStep';
 import InsuranceInformationStep from '../components/steps/InsuranceInformationStep';
+import HealthRecordsStep from '../components/steps/HealthRecordsStep';
 import StepPlaceholder from '../components/steps/StepPlaceholder';
 import { REGISTRATION_STEPS } from '../constants/steps';
 import { INITIAL_FORM_VALUES } from '../constants/formOptions';
@@ -25,6 +26,8 @@ const renderStepContent = (stepId, submitAttempted) => {
       return <MedicalHistoryStep />;
     case 'insurance':
       return <InsuranceInformationStep />;
+    case 'records':
+      return <HealthRecordsStep />;
     default:
       return <StepPlaceholder title={REGISTRATION_STEPS.find((s) => s.id === stepId)?.title} />;
   }
@@ -89,7 +92,8 @@ export default function RegistrationPage() {
           const isSkippableStep =
             currentStep.id === 'additional' ||
             currentStep.id === 'medical' ||
-            currentStep.id === 'insurance';
+            currentStep.id === 'insurance' ||
+            currentStep.id === 'records';
           const isButtonDisabled = isPersonalStep && !isValid;
 
           return (
@@ -140,9 +144,12 @@ export default function RegistrationPage() {
                             ? 520
                             : currentStep.id === 'insurance'
                               ? 560
-                              : 328,
+                              : currentStep.id === 'records'
+                                ? 560
+                                : 328,
                         ...(currentStep.id === 'medical' && { whiteSpace: 'pre-line' }),
                         ...(currentStep.id === 'insurance' && { whiteSpace: 'pre-line' }),
+                        ...(currentStep.id === 'records' && { whiteSpace: 'pre-line' }),
                       }}
                     >
                       {currentStep.subtitle}

@@ -6,9 +6,27 @@ import RequiredLabel from '../common/RequiredLabel';
 
 const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
 const ACCEPTED_EXTENSIONS = '.jpg,.jpeg,.png,.pdf';
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const DEFAULT_MAX_FILE_SIZE = 5 * 1024 * 1024;
 
-export default function FileUploadDropzone({ label, onFileSelect, error }) {
+const formatMaxFileSize = (bytes) => {
+  if (bytes >= 1024 * 1024) {
+    const mb = bytes / (1024 * 1024);
+    return Number.isInteger(mb) ? `${mb}MB` : `${mb.toFixed(0)}MB`;
+  }
+  return `${Math.round(bytes / 1024)}KB`;
+};
+
+export default function FileUploadDropzone({
+  label,
+  onFileSelect,
+  error,
+  maxFileSize = DEFAULT_MAX_FILE_SIZE,
+  showInfoBanner = true,
+  multiple = false,
+  dragText = 'Drag and drop your health records here, or',
+  minHeight = 180,
+  browseOnNewLine = false,
+}) {
   const inputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [localError, setLocalError] = useState('');
@@ -21,8 +39,8 @@ export default function FileUploadDropzone({ label, onFileSelect, error }) {
       return;
     }
 
-    if (file.size > MAX_FILE_SIZE) {
-      setLocalError('File size must be 5MB or less.');
+    if (file.size > maxFileSize) {
+      setLocalError(`File size must be ${formatMaxFileSize(maxFileSize)} or less.`);
       return;
     }
 
@@ -30,11 +48,15 @@ export default function FileUploadDropzone({ label, onFileSelect, error }) {
     onFileSelect(file);
   };
 
+  const handleFiles = (fileList) => {
+    const files = Array.from(fileList ?? []);
+    files.forEach(validateAndSelect);
+  };
+
   const handleDrop = (event) => {
     event.preventDefault();
     setIsDragging(false);
-    const file = event.dataTransfer.files?.[0];
-    validateAndSelect(file);
+    handleFiles(event.dataTransfer.files);
   };
 
   const handleDragOver = (event) => {
@@ -52,8 +74,7 @@ export default function FileUploadDropzone({ label, onFileSelect, error }) {
   };
 
   const handleInputChange = (event) => {
-    const file = event.target.files?.[0];
-    validateAndSelect(file);
+    handleFiles(event.target.files);
     event.target.value = '';
   };
 
@@ -74,7 +95,7 @@ export default function FileUploadDropzone({ label, onFileSelect, error }) {
           bgcolor: isDragging ? '#F0FAF7' : '#FAFAFA',
           py: 6,
           px: 3,
-          minHeight: 180,
+          minHeight,
           textAlign: 'center',
           cursor: 'pointer',
           transition: 'border-color 0.2s, background-color 0.2s',
@@ -85,6 +106,7 @@ export default function FileUploadDropzone({ label, onFileSelect, error }) {
           ref={inputRef}
           type="file"
           accept={ACCEPTED_EXTENSIONS}
+          multiple={multiple}
           onChange={handleInputChange}
           style={{ display: 'none' }}
         />
@@ -100,12 +122,36 @@ export default function FileUploadDropzone({ label, onFileSelect, error }) {
         <Typography
           sx={{
             fontSize: '0.875rem',
-            color: '#6B7280',
+            color: browseOnNewLine ? '#374151' : '#6B7280',
             lineHeight: '20px',
-            mb: 0.5,
+            mb: browseOnNewLine ? 0.25 : 0.5,
           }}
         >
-          Drag and drop your health records here, or{' '}
+          {dragText}
+          {!browseOnNewLine && (
+            <>
+              {' '}
+              <Link
+                component="span"
+                underline="always"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleBrowse();
+                }}
+                sx={{
+                  color: '#00796B',
+                  fontWeight: 500,
+                  cursor: 'pointer',
+                  textDecorationColor: '#00796B',
+                }}
+              >
+                browse
+              </Link>
+            </>
+          )}
+        </Typography>
+
+        {browseOnNewLine && (
           <Link
             component="span"
             underline="always"
@@ -114,15 +160,19 @@ export default function FileUploadDropzone({ label, onFileSelect, error }) {
               handleBrowse();
             }}
             sx={{
+              display: 'block',
               color: '#00796B',
               fontWeight: 500,
+              fontSize: '0.875rem',
+              lineHeight: '20px',
               cursor: 'pointer',
               textDecorationColor: '#00796B',
+              mb: 0.5,
             }}
           >
             browse
           </Link>
-        </Typography>
+        )}
 
         <Typography
           sx={{
@@ -131,35 +181,37 @@ export default function FileUploadDropzone({ label, onFileSelect, error }) {
             lineHeight: '16px',
           }}
         >
-          JPG, PNG or PDF (Max. 5MB)
+          JPG, PNG or PDF (Max. {formatMaxFileSize(maxFileSize)})
         </Typography>
       </Box>
 
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1,
-          mt: 1.5,
-          px: 1.5,
-          py: 1.25,
-          bgcolor: '#F9FAFB',
-          border: '1px solid',
-          borderColor: '#E5E7EB',
-          borderRadius: '8px',
-        }}
-      >
-        <InfoOutlinedIcon sx={{ fontSize: 16, color: '#9CA3AF', flexShrink: 0 }} />
-        <Typography
+      {showInfoBanner && (
+        <Box
           sx={{
-            fontSize: '0.8125rem',
-            color: '#6B7280',
-            lineHeight: '18px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            mt: 1.5,
+            px: 1.5,
+            py: 1.25,
+            bgcolor: '#F9FAFB',
+            border: '1px solid',
+            borderColor: '#E5E7EB',
+            borderRadius: '8px',
           }}
         >
-          Make sure the card is clear and all details are visible
-        </Typography>
-      </Box>
+          <InfoOutlinedIcon sx={{ fontSize: 16, color: '#9CA3AF', flexShrink: 0 }} />
+          <Typography
+            sx={{
+              fontSize: '0.8125rem',
+              color: '#6B7280',
+              lineHeight: '18px',
+            }}
+          >
+            Make sure the card is clear and all details are visible
+          </Typography>
+        </Box>
+      )}
 
       {displayError && (
         <Typography
