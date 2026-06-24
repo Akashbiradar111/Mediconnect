@@ -12,6 +12,7 @@ import MedicalHistoryStep from '../components/steps/MedicalHistoryStep';
 import InsuranceInformationStep from '../components/steps/InsuranceInformationStep';
 import HealthRecordsStep from '../components/steps/HealthRecordsStep';
 import ReviewCompleteStep from '../components/steps/ReviewCompleteStep';
+import AccountSuccessPage from './AccountSuccessPage';
 import { REGISTRATION_STEPS } from '../constants/steps';
 import { INITIAL_FORM_VALUES } from '../constants/formOptions';
 import { STEP_SCHEMAS } from '../validation/schemas';
@@ -38,6 +39,7 @@ const renderStepContent = (stepId, submitAttempted) => {
 export default function RegistrationPage() {
   const [activeStep, setActiveStep] = useState(0);
   const [submitAttempted, setSubmitAttempted] = useState(false);
+  const [registrationComplete, setRegistrationComplete] = useState(null);
 
   const currentStep = REGISTRATION_STEPS[activeStep];
   const currentSchema = STEP_SCHEMAS[currentStep.id];
@@ -63,6 +65,11 @@ export default function RegistrationPage() {
       setSubmitAttempted(false);
       if (activeStep < REGISTRATION_STEPS.length - 1) {
         setActiveStep((prev) => prev + 1);
+      } else if (currentStep.id === 'review') {
+        setRegistrationComplete({
+          patientIdSuffix: values.patientIdSuffix,
+          email: values.email,
+        });
       }
     }
   };
@@ -78,6 +85,15 @@ export default function RegistrationPage() {
       setActiveStep((prev) => prev + 1);
     }
   };
+
+  if (registrationComplete) {
+    return (
+      <AccountSuccessPage
+        patientIdSuffix={registrationComplete.patientIdSuffix}
+        email={registrationComplete.email}
+      />
+    );
+  }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
