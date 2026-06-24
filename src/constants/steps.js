@@ -41,11 +41,12 @@ export const REGISTRATION_STEPS = [
   {
     id: 'insurance',
     label: 'Insurance Information',
-    title: 'Insurance Information',
-    subtitle: 'Enter your insurance details for billing and coverage.',
+    title: 'Insurance Details',
+    subtitle:
+      'Add your insurance information for seamless\ncoverage and claims processing.',
     icon: InsuranceInformationIcon,
-    progress: 65,
-    nextButtonLabel: 'Add Health Records',
+    progress: 60,
+    nextButtonLabel: 'Upload Health Records',
   },
   {
     id: 'records',

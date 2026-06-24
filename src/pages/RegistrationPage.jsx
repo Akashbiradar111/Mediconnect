@@ -9,6 +9,7 @@ import StepActionButton from '../components/common/StepActionButton';
 import PersonalInformationStep from '../components/steps/PersonalInformationStep';
 import AdditionalInformationStep from '../components/steps/AdditionalInformationStep';
 import MedicalHistoryStep from '../components/steps/MedicalHistoryStep';
+import InsuranceInformationStep from '../components/steps/InsuranceInformationStep';
 import StepPlaceholder from '../components/steps/StepPlaceholder';
 import { REGISTRATION_STEPS } from '../constants/steps';
 import { INITIAL_FORM_VALUES } from '../constants/formOptions';
@@ -22,6 +23,8 @@ const renderStepContent = (stepId, submitAttempted) => {
       return <AdditionalInformationStep />;
     case 'medical':
       return <MedicalHistoryStep />;
+    case 'insurance':
+      return <InsuranceInformationStep />;
     default:
       return <StepPlaceholder title={REGISTRATION_STEPS.find((s) => s.id === stepId)?.title} />;
   }
@@ -84,7 +87,9 @@ export default function RegistrationPage() {
         {({ isValid, handleSubmit }) => {
           const isPersonalStep = currentStep.id === 'personal';
           const isSkippableStep =
-            currentStep.id === 'additional' || currentStep.id === 'medical';
+            currentStep.id === 'additional' ||
+            currentStep.id === 'medical' ||
+            currentStep.id === 'insurance';
           const isButtonDisabled = isPersonalStep && !isValid;
 
           return (
@@ -130,8 +135,14 @@ export default function RegistrationPage() {
                         fontWeight: 400,
                         color: '#666666',
                         lineHeight: '19px',
-                        maxWidth: currentStep.id === 'medical' ? 520 : 328,
+                        maxWidth:
+                          currentStep.id === 'medical'
+                            ? 520
+                            : currentStep.id === 'insurance'
+                              ? 560
+                              : 328,
                         ...(currentStep.id === 'medical' && { whiteSpace: 'pre-line' }),
+                        ...(currentStep.id === 'insurance' && { whiteSpace: 'pre-line' }),
                       }}
                     >
                       {currentStep.subtitle}

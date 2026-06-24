@@ -64,7 +64,21 @@ export const INITIAL_FORM_VALUES = {
   existingConditions: '',
   conditionTags: [],
   previousSurgeries: '',
+  insuranceProvider: '',
+  policyNumber: '',
 };
+
+export const INSURANCE_PROVIDER_OPTIONS = [
+  { value: 'star-health', label: 'Star Health Insurance' },
+  { value: 'hdfc-ergo', label: 'HDFC ERGO' },
+  { value: 'icici-lombard', label: 'ICICI Lombard' },
+  { value: 'bajaj-allianz', label: 'Bajaj Allianz' },
+  { value: 'max-bupa', label: 'Max Bupa Health Insurance' },
+  { value: 'care-health', label: 'Care Health Insurance' },
+  { value: 'new-india', label: 'New India Assurance' },
+  { value: 'national-insurance', label: 'National Insurance' },
+  { value: 'other', label: 'Other' },
+];
 
 export const HEIGHT_UNIT_OPTIONS = [
   { value: 'cm', label: 'cm' },
