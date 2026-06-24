@@ -11,7 +11,7 @@ import AdditionalInformationStep from '../components/steps/AdditionalInformation
 import MedicalHistoryStep from '../components/steps/MedicalHistoryStep';
 import InsuranceInformationStep from '../components/steps/InsuranceInformationStep';
 import HealthRecordsStep from '../components/steps/HealthRecordsStep';
-import StepPlaceholder from '../components/steps/StepPlaceholder';
+import ReviewCompleteStep from '../components/steps/ReviewCompleteStep';
 import { REGISTRATION_STEPS } from '../constants/steps';
 import { INITIAL_FORM_VALUES } from '../constants/formOptions';
 import { STEP_SCHEMAS } from '../validation/schemas';
@@ -28,8 +28,10 @@ const renderStepContent = (stepId, submitAttempted) => {
       return <InsuranceInformationStep />;
     case 'records':
       return <HealthRecordsStep />;
+    case 'review':
+      return <ReviewCompleteStep />;
     default:
-      return <StepPlaceholder title={REGISTRATION_STEPS.find((s) => s.id === stepId)?.title} />;
+      return null;
   }
 };
 
@@ -87,14 +89,24 @@ export default function RegistrationPage() {
         validateOnBlur
         enableReinitialize={false}
       >
-        {({ isValid, handleSubmit }) => {
+        {({ isValid, handleSubmit, values }) => {
           const isPersonalStep = currentStep.id === 'personal';
+          const isReviewStep = currentStep.id === 'review';
           const isSkippableStep =
             currentStep.id === 'additional' ||
             currentStep.id === 'medical' ||
             currentStep.id === 'insurance' ||
             currentStep.id === 'records';
-          const isButtonDisabled = isPersonalStep && !isValid;
+          const isButtonDisabled =
+            (isPersonalStep && !isValid) || (isReviewStep && !isValid);
+          const reviewSubtitle =
+            isReviewStep &&
+            values.password &&
+            values.confirmPassword &&
+            values.password === values.confirmPassword &&
+            isValid
+              ? currentStep.subtitleFilled
+              : currentStep.subtitle;
 
           return (
             <RegistrationLayout activeStep={activeStep}>
@@ -146,13 +158,16 @@ export default function RegistrationPage() {
                               ? 560
                               : currentStep.id === 'records'
                                 ? 560
-                                : 328,
+                                : currentStep.id === 'review'
+                                  ? 560
+                                  : 328,
                         ...(currentStep.id === 'medical' && { whiteSpace: 'pre-line' }),
                         ...(currentStep.id === 'insurance' && { whiteSpace: 'pre-line' }),
                         ...(currentStep.id === 'records' && { whiteSpace: 'pre-line' }),
+                        ...(currentStep.id === 'review' && { whiteSpace: 'pre-line' }),
                       }}
                     >
-                      {currentStep.subtitle}
+                      {reviewSubtitle}
                     </Typography>
                   </Box>
                   <ContactSupport />
@@ -222,6 +237,36 @@ export default function RegistrationPage() {
                       </Button>
                       <StepActionButton>{currentStep.nextButtonLabel}</StepActionButton>
                     </Box>
+                  </Box>
+                ) : isReviewStep ? (
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2,
+                      justifyContent: 'flex-end',
+                      pt: { xs: 3, md: 4 },
+                      mt: 'auto',
+                    }}
+                  >
+                    <Button
+                      type="button"
+                      onClick={handleGoBack}
+                      sx={{
+                        color: '#111827',
+                        fontWeight: 500,
+                        fontSize: '0.9375rem',
+                        textTransform: 'none',
+                        minWidth: 'auto',
+                        px: 1,
+                        '&:hover': { bgcolor: 'transparent', textDecoration: 'underline' },
+                      }}
+                    >
+                      Go Back
+                    </Button>
+                    <StepActionButton disabled={isButtonDisabled}>
+                      {currentStep.nextButtonLabel}
+                    </StepActionButton>
                   </Box>
                 ) : (
                   <Box

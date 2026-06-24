@@ -62,10 +62,13 @@ export const REGISTRATION_STEPS = [
     id: 'review',
     label: 'Review & Complete',
     title: 'Review & Complete',
-    subtitle: 'Review your information before submitting your registration.',
+    subtitle:
+      'Configure your login credentials to securely manage your\nhealthcare information.',
+    subtitleFilled:
+      'Review your information and create your account\ncredentials to securely access your healthcare services.',
     icon: ReviewCompleteIcon,
-    progress: 100,
-    nextButtonLabel: 'Complete Registration',
+    progress: 90,
+    nextButtonLabel: 'Create Profile',
   },
 ];
 

@@ -66,6 +66,9 @@ export const INITIAL_FORM_VALUES = {
   previousSurgeries: '',
   insuranceProvider: '',
   policyNumber: '',
+  patientIdSuffix: '7GH381',
+  password: '',
+  confirmPassword: '',
 };
 
 export const INSURANCE_PROVIDER_OPTIONS = [

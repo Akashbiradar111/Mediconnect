@@ -82,9 +82,27 @@ export const additionalInformationSchema = Yup.object({
     }),
 });
 
+export const reviewCompleteSchema = Yup.object({
+  patientIdSuffix: Yup.string()
+    .trim()
+    .required('Patient ID is required')
+    .length(6, 'Patient ID must be 6 characters')
+    .matches(/^[A-Za-z0-9]+$/, 'Patient ID must be alphanumeric'),
+  password: Yup.string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters')
+    .matches(/[a-z]/, 'Password must contain a lowercase letter')
+    .matches(/[A-Z]/, 'Password must contain an uppercase letter')
+    .matches(/[0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/, 'Password must contain a number or symbol'),
+  confirmPassword: Yup.string()
+    .required('Please confirm your password')
+    .oneOf([Yup.ref('password')], 'Confirm password should be same as entered password!'),
+});
+
 export const STEP_SCHEMAS = {
   personal: personalInformationSchema,
   additional: additionalInformationSchema,
+  review: reviewCompleteSchema,
 };
 
 export const REQUIRED_FIELD_KEYS = [
