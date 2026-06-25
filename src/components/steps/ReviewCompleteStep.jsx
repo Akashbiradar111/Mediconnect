@@ -46,7 +46,7 @@ const getPasswordStrength = (password) => {
   const metCount = PASSWORD_REQUIREMENTS.filter((req) => req.test(password)).length;
 
   if (!password) {
-    return { label: 'Weak', color: '#F97316', width: '12%' };
+    return { label: '', color: '#E5E7EB', width: '0%' };
   }
   if (metCount <= 2) {
     return { label: 'Weak', color: '#F97316', width: `${Math.max(15, metCount * 12)}%` };
@@ -500,16 +500,18 @@ export default function ReviewCompleteStep() {
                   }}
                 />
               </Box>
-              <Typography
-                sx={{
-                  fontSize: '0.8125rem',
-                  fontWeight: 600,
-                  color: strength.color,
-                  lineHeight: '18px',
-                }}
-              >
-                {strength.label}
-              </Typography>
+              {hasPasswordInput && (
+                <Typography
+                  sx={{
+                    fontSize: '0.8125rem',
+                    fontWeight: 600,
+                    color: strength.color,
+                    lineHeight: '18px',
+                  }}
+                >
+                  {strength.label}
+                </Typography>
+              )}
             </Box>
 
             <Box sx={{ mt: 2 }}>
