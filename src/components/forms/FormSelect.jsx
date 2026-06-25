@@ -37,15 +37,13 @@ export default function FormSelect({
           }
           return options.find((opt) => opt.value === selected)?.label ?? selected;
         }}
-        slotProps={{
-          input: {
-            startAdornment: startIcon ? (
-              <InputAdornment position="start" sx={{ color: 'grey.400', mr: 0 }}>
-                {startIcon}
-              </InputAdornment>
-            ) : undefined,
-          },
-        }}
+        startAdornment={
+          startIcon ? (
+            <InputAdornment position="start" sx={{ color: 'grey.400', mr: 1 }}>
+              {startIcon}
+            </InputAdornment>
+          ) : undefined
+        }
       >
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>

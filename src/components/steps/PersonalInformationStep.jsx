@@ -1,13 +1,15 @@
 import { useMemo } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useFormikContext } from 'formik';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import WcOutlinedIcon from '@mui/icons-material/WcOutlined';
-import WaterDropOutlinedIcon from '@mui/icons-material/WaterDropOutlined';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import {
+  FullNameIcon,
+  DateOfBirthIcon,
+  PhoneNumberIcon,
+  EmailAddressIcon,
+  GenderIcon,
+  BloodGroupIcon,
+  LocationIcon,
+} from '../icons/PersonalInformationFieldIcons';
 import FormTextField from '../forms/FormTextField';
 import FormSelect from '../forms/FormSelect';
 import FormDatePicker from '../forms/FormDatePicker';
@@ -50,7 +52,7 @@ export default function PersonalInformationStep({ showValidationBanner }) {
         value={values.fullName}
         onChange={handleChange}
         onBlur={handleBlur}
-        startIcon={<PersonOutlineOutlinedIcon sx={{ fontSize: 20 }} />}
+        startIcon={<FullNameIcon sx={{ fontSize: 22 }} />}
         error={touched.fullName && Boolean(errors.fullName)}
         helperText={touched.fullName && errors.fullName}
       />
@@ -61,7 +63,7 @@ export default function PersonalInformationStep({ showValidationBanner }) {
         value={values.dateOfBirth}
         onChange={(date) => setFieldValue('dateOfBirth', date)}
         onBlur={() => setFieldTouched('dateOfBirth', true)}
-        startIcon={<CalendarMonthOutlinedIcon sx={{ fontSize: 20 }} />}
+        startIcon={<DateOfBirthIcon sx={{ fontSize: 22 }} />}
         error={touched.dateOfBirth && Boolean(errors.dateOfBirth)}
         helperText={touched.dateOfBirth && errors.dateOfBirth}
       />
@@ -73,7 +75,7 @@ export default function PersonalInformationStep({ showValidationBanner }) {
         value={values.phoneNumber}
         onChange={handleChange}
         onBlur={handleBlur}
-        startIcon={<PhoneOutlinedIcon sx={{ fontSize: 20 }} />}
+        startIcon={<PhoneNumberIcon sx={{ fontSize: 22 }} />}
         error={touched.phoneNumber && Boolean(errors.phoneNumber)}
         helperText={touched.phoneNumber && errors.phoneNumber}
       />
@@ -85,7 +87,7 @@ export default function PersonalInformationStep({ showValidationBanner }) {
         value={values.email}
         onChange={handleChange}
         onBlur={handleBlur}
-        startIcon={<EmailOutlinedIcon sx={{ fontSize: 20 }} />}
+        startIcon={<EmailAddressIcon sx={{ fontSize: 22 }} />}
         error={touched.email && Boolean(errors.email)}
         helperText={touched.email && errors.email}
       />
@@ -99,7 +101,7 @@ export default function PersonalInformationStep({ showValidationBanner }) {
         value={values.gender}
         onChange={handleChange}
         onBlur={handleBlur}
-        startIcon={<WcOutlinedIcon sx={{ fontSize: 20 }} />}
+        startIcon={<GenderIcon sx={{ fontSize: 22 }} />}
         error={touched.gender && Boolean(errors.gender)}
         helperText={touched.gender && errors.gender}
       />
@@ -113,24 +115,51 @@ export default function PersonalInformationStep({ showValidationBanner }) {
         value={values.bloodGroup}
         onChange={handleChange}
         onBlur={handleBlur}
-        startIcon={<WaterDropOutlinedIcon sx={{ fontSize: 20 }} />}
+        startIcon={<BloodGroupIcon sx={{ fontSize: 22 }} />}
         error={touched.bloodGroup && Boolean(errors.bloodGroup)}
         helperText={touched.bloodGroup && errors.bloodGroup}
       />
 
-      <FormSelect
-        name="state"
-        label="State"
-        required
-        placeholder="Select state"
-        options={STATE_OPTIONS}
-        value={values.state}
-        onChange={handleStateChange}
-        onBlur={handleBlur}
-        startIcon={<LocationOnOutlinedIcon sx={{ fontSize: 20 }} />}
-        error={touched.state && Boolean(errors.state)}
-        helperText={touched.state && errors.state}
-      />
+      <Box>
+        <FormSelect
+          name="state"
+          label="State"
+          required
+          placeholder="Select state"
+          options={STATE_OPTIONS}
+          value={values.state}
+          onChange={handleStateChange}
+          onBlur={handleBlur}
+          startIcon={<LocationIcon sx={{ fontSize: 22 }} />}
+          error={touched.state && Boolean(errors.state)}
+          helperText={touched.state && errors.state}
+        />
+
+        <Box
+          sx={{
+            mt: 1,
+            bgcolor: '#F9FAFB',
+            border: '1px solid #E5E7EB',
+            borderRadius: '10px',
+            px: '12px',
+            py: '8px',
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: '16px',
+              lineHeight: '24px',
+              fontWeight: 400,
+              color: '#111827',
+            }}
+          >
+            <Box component="span" sx={{ color: '#EF4444' }}>
+              *{' '}
+            </Box>
+            These fields are required!
+          </Typography>
+        </Box>
+      </Box>
 
       <FormSelect
         name="city"
@@ -142,7 +171,7 @@ export default function PersonalInformationStep({ showValidationBanner }) {
         onChange={handleChange}
         onBlur={handleBlur}
         disabled={!values.state}
-        startIcon={<LocationOnOutlinedIcon sx={{ fontSize: 20 }} />}
+        startIcon={<LocationIcon sx={{ fontSize: 22 }} />}
         error={touched.city && Boolean(errors.city)}
         helperText={touched.city && errors.city}
       />

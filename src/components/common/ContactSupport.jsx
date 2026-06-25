@@ -14,7 +14,7 @@ export default function ContactSupport({ sx }) {
     >
       <HeadsetMicOutlinedIcon
         sx={{
-          fontSize: 22,
+          fontSize: 26,
           color: '#666666',
           flexShrink: 0,
         }}
